@@ -1,20 +1,19 @@
 package com.example.MyFirstSpringProject.repositories;
 
-import com.example.MyFirstSpringProject.models.Student;
+import com.example.MyFirstSpringProject.models.Customer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class StudentRepositoryImpl implements StudentRepository{
+public class CustomerRepositoryImpl implements CustomerRepository {
 
     private final String url;
     private final String username;
     private final String password;
 
-    public StudentRepositoryImpl(
+    public CustomerRepositoryImpl(
             @Value("${spring.datasource.url}") String url,
             @Value("${spring.datasource.username}") String username,
             @Value("${spring.datasource.password}") String password
@@ -25,22 +24,22 @@ public class StudentRepositoryImpl implements StudentRepository{
         this.password = password;
     }
     @Override
-    public Student getById(Integer integer) {
+    public Customer getById(Integer integer) {
         return null;
     }
 
     @Override
-    public List<Student> getAll() {
+    public List<Customer> getAll() {
         return null;
     }
 
     @Override
-    public void create(Student object) {
+    public void create(Customer object) {
 
     }
 
     @Override
-    public void update(Student object) {
+    public void update(Customer object) {
 
     }
 
@@ -50,7 +49,7 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     @Override
-    public List<Student> getAllBySubject(int subjectId) {
+    public List<Customer> getAllByCountry(String country) {
         return null;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.MyFirstSpringProject.access;
 
 import com.example.MyFirstSpringProject.models.Customer;
-import com.example.MyFirstSpringProject.models.Student;
+import com.example.MyFirstSpringProject.models.CustomerCountry;
 import com.example.MyFirstSpringProject.testing_methods.TestingMethods;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -75,7 +75,7 @@ public class PostgradDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            //TestingMethods.testGetAllCustomers(resultSet);
+            TestingMethods.testGetAllCustomers(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,8 +134,7 @@ public class PostgradDAO {
         return customers;
     }
 
-    //:Customer object: customer_id, first_name, last_name, country, postal_code, phone, email.
-    //5. Add a new customer to the database. You also need to add only the fields listed above (our customer object)
+    //Getting last customer Id is just a method that we created to know where to insert the new customer with point 5.
 
     public int getLastCustomerId() {
         String sql = "SELECT customer_id FROM customer ORDER BY customer_id DESC LIMIT 1";
@@ -154,6 +153,8 @@ public class PostgradDAO {
         }
         return customer_id + 1;
     }
+    //:Customer object: customer_id, first_name, last_name, country, postal_code, phone, email.
+    //5. Add a new customer to the database. You also need to add only the fields listed above (our customer object)
 
     public int insertCustomer(Customer customer) {
         String sql = "INSERT INTO customer (customer_id, first_name, last_name, country, postal_code, phone, email) VALUES (?,?,?,?,?,?,?)";
@@ -179,5 +180,61 @@ public class PostgradDAO {
         }
         return result;
     }
+
+    //6. Update an existing customer.
+    //int customer_id, String first_name, String last_name, String country, String postal_code, String phone, String email
+    //int customer_id, String first_name, String last_name, String country, String postal_code, String phone, String email
+    public int updateCustomer(Customer customer) {
+        String sql = "UPDATE customer SET first_name = ?, last_name = ?, country = ?, postal_code = ?, phone = ?, email = ? WHERE customer_id = ?";
+
+        int result = 0;
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, customer.first_name());
+            statement.setString(2, customer.last_name());
+            statement.setString(3, customer.country());
+            statement.setString(4, customer.postal_code());
+            statement.setString(5, customer.phone());
+            statement.setString(6, customer.email());
+            statement.setInt(7, customer.customer_id());
+
+            //Execute statement
+            result = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    //7. Return the country with the most customers.
+    /*SELECT country
+    FROM customer
+    GROUP BY country
+    HAVING COUNT(customer_id) > 0
+    ORDER BY COUNT(customer_id) DESC
+    LIMIT 1;
+    */
+    public String getCountryWithMostCustomers(){
+        String sql = "SELECT country FROM customer GROUP BY country HAVING COUNT (customer_id) > 0 ORDER BY COUNT(customer_id) DESC LIMIT 1";
+
+        CustomerCountry country = new CustomerCountry("");
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                country = new CustomerCountry(resultSet.getString("country"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return country.country();
+    }
+
+    //8. Customer who is the highest spender (total in invoice table is the largest)
 }
 

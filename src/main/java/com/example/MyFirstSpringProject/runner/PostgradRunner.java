@@ -42,8 +42,15 @@ public class PostgradRunner implements CommandLineRunner {
         //System.out.println(customerList.get(1));
 
         //5
-        int last_customer_id = postgradDAO.getLastCustomerId();
+        //int last_customer_id = postgradDAO.getLastCustomerId();
         //System.out.println(last_customer_id);
-        postgradDAO.insertCustomer(new Customer(last_customer_id,"Andrea","Edson Lorenzoni","Italy","10134","+351 987 321 941","email@example.com"));
+        //postgradDAO.insertCustomer(new Customer(last_customer_id,"Andrea","Edson Lorenzoni","Italy","10134","+351 987 321 941","email@example.com"));
+
+        //6
+        //postgradDAO.updateCustomer(new Customer(3,"Giacomo","Terun terun","Italy","21345", "+43 123 142 123","trueGiacomino@gmail.com"));
+        //postgradDAO.getSpecificCustomer(3);
+
+        //7
+        //System.out.println(postgradDAO.getCountryWithMostCustomers());
     }
 }
