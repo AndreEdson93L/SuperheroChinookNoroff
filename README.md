@@ -1,2 +1,2 @@
 # SuperheroChinookNoroff
-In this project, me (Andrea Edson Lorenzoni) and (Pedro Ferrera) we worked togheter to complete the assignment. The porject include the appendix A (Database superhero) and the appendix B (JDBC Application for ITunes).
+please switch to the master branch. All the commits has been done there and not on the main. The functional project of the appendix B of the assignment is there.
