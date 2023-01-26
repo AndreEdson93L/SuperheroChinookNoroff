@@ -1,6 +1,5 @@
 # SuperheroChinookNoroff
 In this project, me (Andrea Edson Lorenzoni) and (Pedro Ferreira) we worked together to complete the assignment. The project include: 
-- appendix A (Database superhero)
 - appendix B (JDBC Application for ITunes).
 
 Customer requirements for appendix B:
